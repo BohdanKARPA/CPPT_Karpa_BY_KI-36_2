@@ -4,12 +4,30 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Lab1KarpaBohdan36 {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int size = 0;
-        boolean validInput = false;
 
         // Введення розміру матриці
+        int size = getMatrixSize(scanner);
+
+        // Введення символу-заповнювача
+        String fillChar = getFillCharacter(scanner);
+
+        // Створення зубчастого масиву
+        char[][] jaggedArray = createJaggedArray(size, fillChar);
+
+        // Виведення масиву на екран
+        printJaggedArray(jaggedArray);
+
+        // Запис масиву у файл
+        saveJaggedArrayToFile(jaggedArray);
+    }
+
+    // Метод для введення розміру матриці
+    private static int getMatrixSize(Scanner scanner) {
+        int size = 0;
+        boolean validInput = false;
         while (!validInput) {
             System.out.print("Введіть розмір квадратної матриці: ");
             try {
@@ -21,16 +39,17 @@ public class Lab1KarpaBohdan36 {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Помилка: введіть числове значення.");
-                scanner.next(); // Очищення невірного вводу
+                scanner.next(); // Очищення некоректного вводу
             }
         }
-        scanner.nextLine();  // Очистити нову лінію після введення числа
+        scanner.nextLine();  // Очищення буфера після введення числа
+        return size;
+    }
 
-        // Ініціалізація змінної fillChar порожнім рядком
+    // Метод для введення символу-заповнювача
+    private static String getFillCharacter(Scanner scanner) {
         String fillChar = "";
-
-        // Введення символу-заповнювача з перевіркою
-        validInput = false;
+        boolean validInput = false;
         while (!validInput) {
             System.out.print("Введіть символ-заповнювач: ");
             fillChar = scanner.nextLine();
@@ -40,18 +59,23 @@ public class Lab1KarpaBohdan36 {
                 validInput = true;
             }
         }
+        return fillChar;
+    }
 
-        // Створення зубчастого масиву
+    // Метод для створення зубчастого масиву
+    private static char[][] createJaggedArray(int size, String fillChar) {
         char[][] jaggedArray = new char[size][];
-
         for (int i = 0; i < size; i++) {
             jaggedArray[i] = new char[size - i];
             for (int j = 0; j < jaggedArray[i].length; j++) {
                 jaggedArray[i][j] = fillChar.charAt(0);
             }
         }
+        return jaggedArray;
+    }
 
-        // Виведення на екран
+    // Метод для виведення масиву на екран
+    private static void printJaggedArray(char[][] jaggedArray) {
         System.out.println("Сформований масив:");
         for (char[] row : jaggedArray) {
             for (char element : row) {
@@ -59,8 +83,10 @@ public class Lab1KarpaBohdan36 {
             }
             System.out.println();
         }
+    }
 
-        // Запис у текстовий файл
+    // Метод для запису масиву у файл
+    private static void saveJaggedArrayToFile(char[][] jaggedArray) {
         try (FileWriter writer = new FileWriter("jagged_array.txt")) {
             for (char[] row : jaggedArray) {
                 for (char element : row) {
