@@ -1,5 +1,6 @@
 package Lab2KarpaBohdan36;
 
+import java.io.*;
 import java.util.Scanner;
 
 public class PlantDriver {
@@ -51,8 +52,8 @@ public class PlantDriver {
 
                 switch (action) {
                     case 1:
-                        System.out.println("Введіть новий тип кореня:");
-                        String newRootType = scanner.nextLine();
+                        System.out.println("Оберіть новий тип кореня:");
+                        String newRootType = selectRootType(scanner); // Викликаємо метод для вибору
                         selectedPlant.changeRootType(newRootType);
                         break;
                     case 2:
@@ -61,8 +62,8 @@ public class PlantDriver {
                         selectedPlant.changeStemHeight(newStemHeight);
                         break;
                     case 3:
-                        System.out.println("Введіть нову форму листя:");
-                        String newLeafShape = scanner.nextLine();
+                        System.out.println("Оберіть нову форму листя:");
+                        String newLeafShape = selectLeafShape(scanner); // Викликаємо метод для вибору
                         selectedPlant.changeLeafShape(newLeafShape);
                         break;
                     case 4:
