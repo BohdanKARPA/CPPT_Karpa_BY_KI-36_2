@@ -78,7 +78,7 @@ public class Plant {
      * Метод для коректного завершення роботи з файлом.
      */
     public void closeLog() {
-        logActivity("Операції з рослиною завершено. Опис: " + getDescription());
+        logActivity("Операції з рослиною завершено. \nОпис: " + getDescription());
     }
 
     /**

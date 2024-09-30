@@ -1,6 +1,5 @@
 package Lab2KarpaBohdan36;
 
-import java.io.*;
 import java.util.Scanner;
 
 public class PlantDriver {
@@ -93,13 +92,30 @@ public class PlantDriver {
      * @param scanner Об'єкт Scanner для читання введення користувача.
      * @return Об'єкт класу Plant з введеними характеристиками.
      */
+    /**
+     * Метод для створення рослини за введеними користувачем даними.
+     *
+     * @param scanner Об'єкт Scanner для читання введення користувача.
+     * @return Об'єкт класу Plant з введеними характеристиками.
+     */
     private static Plant createPlant(Scanner scanner) {
         // Вибір характеристик для кожної рослини
         System.out.println("Виберіть тип кореня:");
         String rootType = selectRootType(scanner);
 
-        System.out.println("Введіть висоту стебла (в сантиметрах):");
-        double stemHeight = scanner.nextDouble();
+        // Введення висоти стебла з перевіркою
+        double stemHeight;
+        do {
+            System.out.println("Введіть висоту стебла (в сантиметрах, більше за 0):");
+            while (!scanner.hasNextDouble()) {
+                System.out.println("Невірний ввід. Введіть число.");
+                scanner.next(); // очищуємо неправильний ввід
+            }
+            stemHeight = scanner.nextDouble();
+            if (stemHeight <= 0) {
+                System.out.println("Висота стебла повинна бути більше за 0. Спробуйте ще раз.");
+            }
+        } while (stemHeight <= 0);
         scanner.nextLine(); // очищуємо лінію після вводу числа
 
         System.out.println("Виберіть форму листя:");
@@ -111,6 +127,7 @@ public class PlantDriver {
 
         return new Plant(root, stem, leaves);
     }
+
 
     /**
      * Метод для вибору типу кореня з меню.
