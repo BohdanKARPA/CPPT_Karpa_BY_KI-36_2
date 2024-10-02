@@ -9,7 +9,7 @@ public class Plant {
     private Stem stem;
     private Leaves leaves;
 
-    // Конструктор за замовчуванням
+    // Конструктор за замовчуванням створює рослину з типовими значеннями
     public Plant() {
         this.root = new Root("unknown");
         this.stem = new Stem(0.0);
@@ -17,7 +17,7 @@ public class Plant {
         logActivity("Рослину створено з значеннями за замовчуванням.");
     }
 
-    // Конструктор з параметрами
+    // Конструктор з параметрами для створення рослини з вказаними характеристиками
     public Plant(Root root, Stem stem, Leaves leaves) {
         this.root = root;
         this.stem = stem;
@@ -25,28 +25,34 @@ public class Plant {
         logActivity("Рослину створено з вказаними значеннями: " + getDescription());
     }
 
+    // Метод для отримання кореня рослини
     public Root getRoot() {
         return root;
     }
 
+    // Метод для зміни типу кореня рослини
     public void setRoot(Root root) {
         this.root = root;
         logActivity("Тип кореня оновлено на: " + root.getRootType());
     }
 
+    // Метод для отримання стебла рослини
     public Stem getStem() {
         return stem;
     }
 
+    // Метод для зміни висоти стебла
     public void setStem(Stem stem) {
         this.stem = stem;
         logActivity("Стебло оновлено на висоту: " + stem.getHeight() + " см");
     }
 
+    // Метод для отримання листя рослини
     public Leaves getLeaves() {
         return leaves;
     }
 
+    // Метод для зміни форми листя
     public void setLeaves(Leaves leaves) {
         this.leaves = leaves;
         logActivity("Листя оновлено на форму: " + leaves.getLeafShape());
@@ -76,6 +82,7 @@ public class Plant {
 
     /**
      * Метод для коректного завершення роботи з файлом.
+     * Записує завершальну інформацію до логу.
      */
     public void closeLog() {
         logActivity("Операції з рослиною завершено. \nОпис: " + getDescription());
