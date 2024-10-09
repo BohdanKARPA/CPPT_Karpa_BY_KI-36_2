@@ -1,4 +1,5 @@
 package Lab3KarpaBohdan36;
+
 /**
  * Клас, що представляє стебло рослини.
  */
@@ -32,9 +33,12 @@ public class Stem {
         this.height = height;
     }
 
+    /**
+     * Метод для отримання рядкового представлення об'єкта Stem.
+     * @return Рядкове представлення висоти стебла.
+     */
     @Override
     public String toString() {
         return "Висота стебла: " + height + " см";
     }
 }
-

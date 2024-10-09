@@ -7,18 +7,19 @@ public class PlantDriver {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Введіть кількість дерев:");
-        int treeCount = scanner.nextInt();
-        scanner.nextLine(); // Очищуємо лінію після вводу числа
+        // Запитуємо у користувача кількість дерев з перевіркою
+        int treeCount = inputValidTreeCount(scanner);
 
         Tree[] trees = new Tree[treeCount];
 
+        // Створюємо дерева на основі вводу користувача
         for (int i = 0; i < treeCount; i++) {
             System.out.println("\nСтворюється дерево " + (i + 1) + ":");
             trees[i] = createTree(scanner);
             System.out.println(trees[i].getDescription());
         }
 
+        // Зберігаємо інформацію про дерева у файл
         saveTreesToFile(trees, "trees.txt");
 
         // Основне меню для роботи з деревами
@@ -89,12 +90,39 @@ public class PlantDriver {
                 }
             }
 
-            saveTreesToFile(trees, "trees.txt"); // Оновлення файлу після змін
+            // Оновлюємо файл після змін
+            saveTreesToFile(trees, "trees.txt");
         }
 
-        scanner.close();
+        scanner.close(); // Закриваємо сканер після завершення роботи
     }
 
+    /**
+     * Метод для перевірки кількості дерев, яка повинна бути більше 0.
+     * @param scanner Сканер для отримання вводу від користувача.
+     * @return Кількість дерев.
+     */
+    public static int inputValidTreeCount(Scanner scanner) {
+        int treeCount;
+        do {
+            System.out.println("Введіть кількість дерев (більше 0):");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Невірний ввід. Введіть ціле число:");
+                scanner.next();
+            }
+            treeCount = scanner.nextInt();
+            if (treeCount <= 0) {
+                System.out.println("Кількість дерев повинна бути більше 0. Спробуйте ще раз.");
+            }
+        } while (treeCount <= 0);
+        return treeCount;
+    }
+
+    /**
+     * Метод для створення нового дерева на основі вводу користувача.
+     * @param scanner Сканер для отримання вводу від користувача.
+     * @return Нове дерево.
+     */
     private static Tree createTree(Scanner scanner) {
         System.out.println("Виберіть тип кореня:");
         String rootType = selectRootType(scanner);
@@ -115,6 +143,11 @@ public class PlantDriver {
         return new Tree(root, stem, leaves, treeType);
     }
 
+    /**
+     * Метод для вводу дійсного числа, яке представляє висоту.
+     * @param scanner Сканер для отримання вводу від користувача.
+     * @return Введена висота, яка є невід'ємним числом.
+     */
     public static double inputValidHeight(Scanner scanner) {
         double height;
         do {
@@ -131,6 +164,11 @@ public class PlantDriver {
         return height;
     }
 
+    /**
+     * Метод для вибору типу кореня з можливих варіантів.
+     * @param scanner Сканер для отримання вводу від користувача.
+     * @return Вибраний тип кореня.
+     */
     public static String selectRootType(Scanner scanner) {
         int choice;
         do {
@@ -149,6 +187,11 @@ public class PlantDriver {
         return (choice == 1) ? "мочкуватий" : "стрижневий";
     }
 
+    /**
+     * Метод для вибору форми листя з можливих варіантів.
+     * @param scanner Сканер для отримання вводу від користувача.
+     * @return Вибрана форма листя.
+     */
     public static String selectLeafShape(Scanner scanner) {
         int choice;
         do {
@@ -176,10 +219,15 @@ public class PlantDriver {
         }
     }
 
+    /**
+     * Метод для вибору типу дерева з можливих варіантів.
+     * @param scanner Сканер для отримання вводу від користувача.
+     * @return Вибраний тип дерева.
+     */
     public static String selectTreeType(Scanner scanner) {
         int choice;
         do {
-            System.out.println("1. Дуб\n2. Ялина\n3. Береза\n4. Клен");
+            System.out.println("1. Яблуня\n2. Груша\n3. Слива\n4. Абрикос");
             while (!scanner.hasNextInt()) {
                 System.out.println("Невірний ввід. Введіть число 1, 2, 3 або 4:");
                 scanner.next();
@@ -193,30 +241,31 @@ public class PlantDriver {
 
         switch (choice) {
             case 1:
-                return "дуб";
+                return "Яблуня";
             case 2:
-                return "ялина";
+                return "Груша";
             case 3:
-                return "береза";
+                return "Слива";
             case 4:
-                return "клен";
+                return "Абрикоса";
             default:
                 return "невідома";
         }
     }
 
-    public static void saveTreesToFile(Tree[] trees, String filename) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+    /**
+     * Метод для збереження інформації про всі дерева у текстовий файл.
+     * @param trees Масив дерев для збереження.
+     * @param fileName Ім'я файлу для збереження.
+     */
+    public static void saveTreesToFile(Tree[] trees, String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Tree tree : trees) {
-                writer.write("Тип дерева: " + tree.getTreeType() + "\n");
-                writer.write("Корінь: " + tree.getRoot().toString() + "\n");
-                writer.write("Стебло: " + tree.getStem().toString() + "\n");
-                writer.write("Листя: " + tree.getLeaves().toString() + "\n");
-                writer.write("Кількість плодів: " + tree.getFruitCount() + "\n\n");
+                writer.write(tree.getDescription());
+                writer.newLine(); // Додаємо новий рядок після кожного дерева
             }
-            System.out.println("Дані дерев успішно збережено у файл " + filename);
         } catch (IOException e) {
-            System.err.println("Помилка при запису у файл: " + e.getMessage());
+            System.out.println("Сталася помилка при записі у файл: " + e.getMessage());
         }
     }
 }

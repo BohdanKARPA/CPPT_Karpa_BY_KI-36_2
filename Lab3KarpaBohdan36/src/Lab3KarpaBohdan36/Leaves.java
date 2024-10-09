@@ -30,6 +30,10 @@ public class Leaves {
         this.leafShape = leafShape;
     }
 
+    /**
+     * Метод для отримання рядкового представлення об'єкта Leaves.
+     * @return Рядкове представлення форми листя.
+     */
     @Override
     public String toString() {
         return "Форма листя: " + leafShape;
