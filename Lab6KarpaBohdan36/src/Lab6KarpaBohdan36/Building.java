@@ -1,29 +1,51 @@
 package Lab6KarpaBohdan36;
 
-// Клас, що реалізує споруду
 public class Building {
-    private String name;      // Назва споруди
-    private int height;       // Висота споруди (в метрах)
+    private final String name;   // Назва будівлі
+    private final double height;  // Висота будівлі
+    private final double area;    // Площа будівлі
+    private final int floors;     // Кількість поверхів
+    private final String type;    // Тип будівлі (наприклад, "Житловий", "Офісний", "Комерційний")
+    private final int yearBuilt;  // Рік побудови
 
-    // Конструктор
-    public Building(String name, int height) {
+    // Конструктор для створення об'єкта будівлі
+    public Building(String name, double height, double area, int floors, String type, int yearBuilt) {
         this.name = name;
         this.height = height;
+        this.area = area;
+        this.floors = floors;
+        this.type = type;
+        this.yearBuilt = yearBuilt;
     }
 
-    // Метод для отримання назви
-    public String getName() {
-        return name;
-    }
-
-    // Метод для отримання висоти
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    // Перевизначення методу toString для виведення інформації
+    public double getArea() {
+        return area;
+    }
+
+    public int getFloors() {
+        return floors;
+    }
+
+    public int getYearBuilt() {
+        return yearBuilt;
+    }
+
+    // Метод для зручного виведення об'єкта у вигляді рядка (українською мовою)
     @Override
     public String toString() {
-        return "Building{name='" + name + "', height=" + height + " meters}";
+        StringBuilder sb = new StringBuilder();
+        sb.append("Будівля{")
+                .append("назва='").append(name).append('\'')
+                .append(", висота=").append(height).append(" м")
+                .append(", площа=").append(area).append(" кв.м")
+                .append(", поверхи=").append(floors)
+                .append(", тип='").append(type).append('\'')
+                .append(", рік побудови=").append(yearBuilt)
+                .append('}');
+        return sb.toString();
     }
 }
