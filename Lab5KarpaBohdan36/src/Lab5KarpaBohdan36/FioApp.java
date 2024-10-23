@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class FioApp {
 
     public static void main(String[] args) {
+
         ExpressionCalculator calculator = new ExpressionCalculator(); // Створюємо об'єкт калькулятора виразів
         Scanner scanner = new Scanner(System.in); // Створюємо об'єкт для зчитування даних від користувача
 
