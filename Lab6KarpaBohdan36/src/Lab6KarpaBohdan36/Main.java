@@ -8,46 +8,63 @@ public class Main {
         BuildingContainer<Building> container = getBuildingContainer();
 
         // Виведення всіх будівель
-        System.out.println("Усі будівлі:");
+        StringBuilder output = new StringBuilder("=== Усі будівлі ===\n");
         for (Building building : container.getAllBuildings()) {
-            System.out.println(building);
+            output.append(building).append('\n');
         }
+        System.out.print(output.toString());
 
         // Пошук будівлі з найбільшою висотою
         Optional<Building> tallestBuilding = container.findMaxHeight();
-        tallestBuilding.ifPresent(building ->
-                System.out.println("\nНайвища будівля: " + building));
+        tallestBuilding.ifPresent(building -> {
+            output.setLength(0); // Очищення StringBuilder
+            output.append("\n=== Найвища будівля ===\n").append(building);
+            System.out.println(output);
+        });
 
         // Пошук будівлі з найбільшою площею
         Optional<Building> largestBuilding = container.findMaxArea();
-        largestBuilding.ifPresent(building ->
-                System.out.println("\nБудівля з найбільшою площею: " + building));
+        largestBuilding.ifPresent(building -> {
+            output.setLength(0); // Очищення StringBuilder
+            output.append("\n=== Будівля з найбільшою площею ===\n").append(building);
+            System.out.println(output);
+        });
 
         // Пошук будівлі з найбільшою кількістю поверхів
         Optional<Building> tallestByFloors = container.findMaxFloors();
-        tallestByFloors.ifPresent(building ->
-                System.out.println("\nБудівля з найбільшою кількістю поверхів: " + building));
+        tallestByFloors.ifPresent(building -> {
+            output.setLength(0); // Очищення StringBuilder
+            output.append("\n=== Будівля з найбільшою кількістю поверхів ===\n").append(building);
+            System.out.println(output);
+        });
 
         // Пошук найстарішої будівлі
         Optional<Building> oldestBuilding = container.findOldestBuilding();
-        oldestBuilding.ifPresent(building ->
-                System.out.println("\nНайстаріша будівля: " + building));
+        oldestBuilding.ifPresent(building -> {
+            output.setLength(0); // Очищення StringBuilder
+            output.append("\n=== Найстаріша будівля ===\n").append(building);
+            System.out.println(output);
+        });
 
         // Сортування за роком побудови
-        System.out.println("\nБудівлі відсортовані за роком побудови (від новіших до старіших):");
+        output.setLength(0); // Очищення StringBuilder
+        output.append("\n=== Будівлі відсортовані за роком побудови (від новіших до старіших) ===\n");
         for (Building building : container.sortByYearBuilt()) {
-            System.out.println(building);
+            output.append(building).append('\n');
         }
+        System.out.print(output.toString());
 
         // Приклад видалення будівлі
         System.out.println("\nВидалення найстарішої будівлі 'House'...");
         container.removeBuilding(oldestBuilding.orElse(null)); // Видалення найстарішої будівлі
 
         // Виведення всіх будівель після видалення
-        System.out.println("Усі будівлі після видалення:");
+        output.setLength(0); // Очищення StringBuilder
+        output.append("=== Усі будівлі після видалення ===\n");
         for (Building building : container.getAllBuildings()) {
-            System.out.println(building);
+            output.append(building).append('\n');
         }
+        System.out.print(output.toString());
     }
 
     // Метод для створення контейнера з будівлями
