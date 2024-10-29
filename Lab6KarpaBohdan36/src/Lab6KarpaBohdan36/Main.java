@@ -30,12 +30,10 @@ public class Main {
             System.out.println(output);
         });
 
-        // Пошук будівлі з найбільшою кількістю поверхів
-        Optional<Building> tallestByFloors = container.findMaxFloors();
-        tallestByFloors.ifPresent(building -> {
-            output.setLength(0); // Очищення StringBuilder
-            output.append("\n=== Будівля з найбільшою кількістю поверхів ===\n").append(building);
-            System.out.println(output);
+        // Пошук будівлі з максимальною кількістю поверхів
+        Optional<Building> maxFloorsBuilding = container.findBuildingWithMaxFloors();
+        maxFloorsBuilding.ifPresent(building -> {
+            System.out.println("\n=== Будівля з максимальною кількістю поверхів ===\n" + building);
         });
 
         // Пошук найстарішої будівлі
@@ -54,9 +52,9 @@ public class Main {
         }
         System.out.print(output.toString());
 
-        // Приклад видалення будівлі
-        System.out.println("\nВидалення найстарішої будівлі 'House'...");
-        container.removeBuilding(oldestBuilding.orElse(null)); // Видалення найстарішої будівлі
+        // Видалення будівлі за умовою (наприклад, найстарішої будівлі)
+        System.out.println("\nВидалення найстарішої будівлі...");
+        container.removeBuildingWithCondition(container, oldestBuilding.orElse(null));
 
         // Виведення всіх будівель після видалення
         output.setLength(0); // Очищення StringBuilder
@@ -70,7 +68,7 @@ public class Main {
     // Метод для створення контейнера з будівлями
     private static BuildingContainer<Building> getBuildingContainer() {
         Building building1 = new Building("Skyscraper", 300.5, 50000, 60, "Комерційний", 1995);
-        Building building2 = new Building("Apartment", 100.2, 2000, 15, "Житловий", 1980);
+        Building building2 = new Building("Apartment", 100.2, 100000, 15, "Житловий", 1980);
         Building building3 = new Building("House", 15.7, 300, 2, "Житловий", 1920);
 
         // Створення екземпляра контейнера

@@ -6,49 +6,49 @@ import java.util.List;
 import java.util.Optional;
 
 public class BuildingContainer<T extends Building> {
-    private final List<T> buildings; // Список будівель
+    private final List<T> buildings; // List of buildings
 
-    // Конструктор, що ініціалізує контейнер
+    // Constructor
     public BuildingContainer() {
         buildings = new ArrayList<>();
     }
 
-    // Метод додавання елемента до контейнера
+    // Add a building
     public void addBuilding(T building) {
         buildings.add(building);
     }
 
-    // Метод видалення елемента з контейнера (залишено для використання в майбутньому)
-    public void removeBuilding(T building) {
-        buildings.remove(building);
-    }
-
-    // Пошук будівлі з найбільшою висотою
+    // Find building with maximum height
     public Optional<T> findMaxHeight() {
         return buildings.stream().max(Comparator.comparingDouble(Building::getHeight));
     }
 
-    // Пошук будівлі з найбільшою площею
+    // Find building with maximum area
     public Optional<T> findMaxArea() {
         return buildings.stream().max(Comparator.comparingDouble(Building::getArea));
     }
 
-    // Пошук будівлі з найбільшою кількістю поверхів
-    public Optional<T> findMaxFloors() {
+    // Find building with the maximum number of floors
+    public Optional<T> findBuildingWithMaxFloors() {
         return buildings.stream().max(Comparator.comparingInt(Building::getFloors));
     }
 
-    // Пошук найстарішої будівлі
+    // Find the oldest building
     public Optional<T> findOldestBuilding() {
         return buildings.stream().min(Comparator.comparingInt(Building::getYearBuilt));
     }
 
-    // Метод для отримання всіх будівель
+    // Remove a building if it matches the condition
+    public void removeBuildingWithCondition(BuildingContainer<? super Building> container, Building building) {
+        container.buildings.remove(building);
+    }
+
+    // Get all buildings
     public List<T> getAllBuildings() {
         return new ArrayList<>(buildings);
     }
 
-    // Сортування будівель за роком побудови (від новішого до старішого)
+    // Sort buildings by year built (from newest to oldest)
     public List<T> sortByYearBuilt() {
         List<T> sortedList = new ArrayList<>(buildings);
         sortedList.sort(Comparator.comparingInt(Building::getYearBuilt).reversed());
