@@ -6,49 +6,49 @@ import java.util.List;
 import java.util.Optional;
 
 public class BuildingContainer<T extends Building> {
-    private final List<T> buildings; // List of buildings
+    private final List<T> buildings; // Список будівель
 
-    // Constructor
+    // Конструктор
     public BuildingContainer() {
         buildings = new ArrayList<>();
     }
 
-    // Add a building
+    // Метод для додавання будівлі
     public void addBuilding(T building) {
         buildings.add(building);
     }
 
-    // Find building with maximum height
+    // Пошук будівлі з максимальною висотою
     public Optional<T> findMaxHeight() {
         return buildings.stream().max(Comparator.comparingDouble(Building::getHeight));
     }
 
-    // Find building with maximum area
+    // Пошук будівлі з максимальною площею
     public Optional<T> findMaxArea() {
         return buildings.stream().max(Comparator.comparingDouble(Building::getArea));
     }
 
-    // Find building with the maximum number of floors
+    // Пошук будівлі з максимальною кількістю поверхів
     public Optional<T> findBuildingWithMaxFloors() {
         return buildings.stream().max(Comparator.comparingInt(Building::getFloors));
     }
 
-    // Find the oldest building
+    // Пошук найстарішої будівлі
     public Optional<T> findOldestBuilding() {
         return buildings.stream().min(Comparator.comparingInt(Building::getYearBuilt));
     }
 
-    // Remove a building if it matches the condition
+    // Видалення будівлі, якщо вона відповідає певній умові
     public void removeBuildingWithCondition(BuildingContainer<? super Building> container, Building building) {
         container.buildings.remove(building);
     }
 
-    // Get all buildings
+    // Отримання всіх будівель
     public List<T> getAllBuildings() {
         return new ArrayList<>(buildings);
     }
 
-    // Sort buildings by year built (from newest to oldest)
+    // Сортування будівель за роком побудови (від новіших до старіших)
     public List<T> sortByYearBuilt() {
         List<T> sortedList = new ArrayList<>(buildings);
         sortedList.sort(Comparator.comparingInt(Building::getYearBuilt).reversed());

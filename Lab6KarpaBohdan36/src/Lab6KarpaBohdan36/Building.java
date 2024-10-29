@@ -1,5 +1,7 @@
 package Lab6KarpaBohdan36;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class Building {
     private final String name;   // Назва будівлі
     private final double height;  // Висота будівлі
@@ -37,8 +39,8 @@ public class Building {
     // Метод для зручного виведення об'єкта у вигляді рядка (українською мовою)
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Будівля{")
+        AtomicReference<StringBuilder> sb = new AtomicReference<>(new StringBuilder());
+        sb.get().append("Будівля{")
                 .append("назва='").append(name).append('\'')
                 .append(", висота=").append(height).append(" м")
                 .append(", площа=").append(area).append(" кв.м")
