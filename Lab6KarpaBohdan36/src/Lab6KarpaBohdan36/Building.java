@@ -12,26 +12,28 @@ public class Building {
 
     // Конструктор для створення об'єкта будівлі
     public Building(String name, double height, double area, int floors, String type, int yearBuilt) {
-        this.name = name;
-        this.height = height;
-        this.area = area;
-        this.floors = floors;
-        this.type = type;
-        this.yearBuilt = yearBuilt;
+        this.name = name;          // Ініціалізуємо назву будівлі
+        this.height = height;      // Ініціалізуємо висоту будівлі
+        this.area = area;          // Ініціалізуємо площу будівлі
+        this.floors = floors;      // Ініціалізуємо кількість поверхів
+        this.type = type;          // Ініціалізуємо тип будівлі
+        this.yearBuilt = yearBuilt; // Ініціалізуємо рік побудови
     }
 
-    public double getHeight() {
-        return height;
-    }
+    // Метод для отримання висоти будівлі
+    public double getHeight() { return height; }
 
+    // Метод для отримання площі будівлі
     public double getArea() {
         return area;
     }
 
+    // Метод для отримання кількості поверхів
     public int getFloors() {
         return floors;
     }
 
+    // Метод для отримання року побудови
     public int getYearBuilt() {
         return yearBuilt;
     }
@@ -39,7 +41,10 @@ public class Building {
     // Метод для зручного виведення об'єкта у вигляді рядка (українською мовою)
     @Override
     public String toString() {
+        // Використовуємо AtomicReference для потокобезпечного створення рядка
         AtomicReference<StringBuilder> sb = new AtomicReference<>(new StringBuilder());
+
+        // Формуємо опис будівлі у вигляді рядка
         sb.get().append("Будівля{")
                 .append("назва='").append(name).append('\'')
                 .append(", висота=").append(height).append(" м")
@@ -48,6 +53,8 @@ public class Building {
                 .append(", тип='").append(type).append('\'')
                 .append(", рік побудови=").append(yearBuilt)
                 .append('}');
+
+        // Повертаємо отриманий рядок
         return sb.toString();
     }
 }
