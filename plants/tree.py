@@ -1,6 +1,5 @@
 from .plant import Plant
 
-
 class Tree(Plant):
     """Клас, що представляє дерево, наслідуючи рослину."""
 

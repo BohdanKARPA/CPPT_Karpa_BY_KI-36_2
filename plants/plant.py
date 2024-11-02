@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 
-
-
 class Plant(ABC):
     """Абстрактний клас, що представляє рослину."""
 
